@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello Mini App</title>
+    <!-- Подключаем скрипт Telegram -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+            text-align: center;
+            background-color: var(--tg-theme-bg-color, #ffffff);
+            color: var(--tg-theme-text-color, #000000);
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Привет, <span id="username">гость</span>!</h1>
+    <p>Это мой первый Mini App.</p>
+    <button id="myButton">Нажми меня</button>
+
+    <script>
+        // 1. Получаем объект Telegram
+        const tg = window.Telegram.WebApp;
+
+        // 2. Обязательно: сообщаем, что приложение готово
+        tg.ready();
+        // 3. Разворачиваем на весь экран
+        tg.expand();
+
+        // 4. Пытаемся получить имя пользователя
+        const user = tg.initDataUnsafe?.user;
+        if (user) {
+            document.getElementById('username').textContent = user.first_name;
+        }
+
+        // 5. Обработчик кнопки
+        document.getElementById('myButton').addEventListener('click', () => {
+            tg.showAlert('Ура! Кнопка работает.');
+        });
+    </script>
+</body>
+</html>
